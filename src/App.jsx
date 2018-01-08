@@ -9,6 +9,7 @@ class IssueFilter extends React.Component {
 class IssueRow extends React.Component {
   render() {
     const issue = this.props.issue;
+    console.log(issue);
     return (
       <tr>
         <td>{issue.id}</td>
@@ -79,9 +80,19 @@ const issues = [
 class IssueList extends React.Component {
   constructor() {
     super();
-    this.state = { issues: issues };
+    this.state = { issues: [] };
 
-    setTimeout(this.createTestIssue.bind(this), 2000);
+    this.createTestIssue = this.createTestIssue.bind(this);
+    setTimeout(this.createTestIssue, 2000);
+  }
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
+    setTimeout(() => {
+      this.setState({ issues: issues });
+    }, 500);
   }
 
   createIssue(newIssue) {
@@ -93,8 +104,10 @@ class IssueList extends React.Component {
 
   createTestIssue() {
     this.createIssue({
-      status: 'New', owner: 'Pieta', created: new Date(),
-      title: 'Completion date should be optional',
+      status: "New",
+      owner: "Pieta",
+      created: new Date(),
+      title: "Completion date should be optional"
     });
   }
 
@@ -105,12 +118,12 @@ class IssueList extends React.Component {
         <IssueFilter />
         <hr />
         <IssueTable issues={this.state.issues} />
+        <button onClick={this.createTestIssue}>Add</button>
         <hr />
         <IssueAdd />
       </div>
     );
   }
 }
-
 
 ReactDOM.render(<IssueList />, contentNode);
