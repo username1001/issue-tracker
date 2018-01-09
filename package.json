@@ -6,14 +6,17 @@
   "scripts": {
     "compile": "babel src --presets react,es2015 --out-dir static",
     "watch": "babel src --presets react,es2015 --out-dir static --watch",
-    "start": "nodemon -w server.js server.js",
+    "start": "nodemon -w server server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "co": "^4.6.0",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
