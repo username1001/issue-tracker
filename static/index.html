@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.13.0/polyfill.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
     <title>Issue Tracker</title>
     <style>
         table.bordered-table th,
@@ -20,12 +16,27 @@
         table.bordered-table {
             border-collapse: collapse;
         }
+
+        .header {
+            border-bottom: 1px solid silver;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            border-top: 1px solid silver;
+            padding-top: 5px;
+            margin-top: 20px;
+            font-family: Helvetica;
+            font-size: 10px;
+            color: grey;
+        }
     </style>
 </head>
 
 <body>
     <div id="contents"></div>
     <!-- Component will appear here -->
+    <script src="/vendor.bundle.js"></script>
     <script src="/app.bundle.js"></script>
 </body>
 

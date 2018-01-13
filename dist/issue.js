@@ -1,3 +1,8 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const validIssueStatus = {
   New: true,
   Open: true,
@@ -37,7 +42,8 @@ function validateIssue(issue) {
   return errors.length ? errors.join("; ") : null;
 }
 
-export default {
-  validateIssue,
-  cleanupIssue
+exports.default = {
+  validateIssue: validateIssue,
+  cleanupIssue: cleanupIssue
 };
+//# sourceMappingURL=issue.js.map
