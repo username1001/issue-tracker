@@ -13,8 +13,8 @@ export default class IssueEdit extends React.Component {
         owner: "",
         effort: "",
         completionDate: "",
-        created: ""
-      }
+        created: "",
+      },
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -42,10 +42,10 @@ export default class IssueEdit extends React.Component {
           response.json().then(issue => {
             issue.created = new Date(issue.created).toDateString();
             issue.completionDate =
-              issue.completionDate != null
+              issue.completionDate !== null
                 ? new Date(issue.completionDate).toDateString()
                 : "";
-            issue.effort = issue.effort != null ? issue.effort.toString() : "";
+            issue.effort = issue.effort !== null ? issue.effort.toString() : "";
             this.setState({ issue });
           });
         } else {
