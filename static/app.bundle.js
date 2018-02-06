@@ -26,60 +26,58 @@ var _IssueEdit2 = _interopRequireDefault(_IssueEdit);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var contentNode = document.getElementById("contents");
+var contentNode = document.getElementById('contents');
 var NoMatch = function NoMatch() {
   return _react2.default.createElement(
-    "p",
+    'p',
     null,
-    "Page Not Found"
+    'Page Not Found'
   );
 };
 
 var App = function App(props) {
   return _react2.default.createElement(
-    "div",
+    'div',
     null,
     _react2.default.createElement(
-      "div",
-      { className: "header" },
+      'div',
+      { className: 'header' },
       _react2.default.createElement(
-        "h1",
+        'h1',
         null,
-        "Issue Tracker"
+        'Issue Tracker'
       )
     ),
     _react2.default.createElement(
-      "div",
-      { className: "contents" },
+      'div',
+      { className: 'contents' },
       props.children
     ),
     _react2.default.createElement(
-      "div",
-      { className: "footer" },
-      "Full source available at ",
+      'div',
+      { className: 'footer' },
+      'Full source available at',
+      ' ',
       _react2.default.createElement(
-        "a",
-        { href: "#" },
-        "github"
+        'a',
+        { href: 'https://github.com/username1001/issue-tracker' },
+        'github'
       )
     )
   );
 };
 
-// App.propTypes = {
-//   children: React.PropTypes.object.isRequired
-// };
 var RoutedApp = function RoutedApp() {
   return _react2.default.createElement(
     _reactRouter.Router,
     { history: _reactRouter.browserHistory },
-    _react2.default.createElement(_reactRouter.Redirect, { from: "/", to: "/issues" }),
+    _react2.default.createElement(_reactRouter.Redirect, { from: '/', to: '/issues' }),
     _react2.default.createElement(
       _reactRouter.Route,
-      { path: "/", component: App },
-      _react2.default.createElement(_reactRouter.Route, { path: "/issues", component: (0, _reactRouter.withRouter)(_IssueList2.default) }),
-      _react2.default.createElement(_reactRouter.Route, { path: "/issues/:id", component: _IssueEdit2.default }),
-      _react2.default.createElement(_reactRouter.Route, { path: "*", component: NoMatch })
+      { path: '/', component: App },
+      _react2.default.createElement(_reactRouter.Route, { path: '/issues', component: (0, _reactRouter.withRouter)(_IssueList2.default) }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/issues/:id', component: _IssueEdit2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
     )
   );
 };
@@ -678,13 +676,13 @@ var IssueEdit = function (_React$Component) {
 
     _this.state = {
       issue: {
-        _id: "",
-        title: "",
-        status: "",
-        owner: "",
-        effort: "",
-        completionDate: "",
-        created: ""
+        _id: '',
+        title: '',
+        status: '',
+        owner: '',
+        effort: '',
+        completionDate: '',
+        created: ''
       }
     };
     _this.onChange = _this.onChange.bind(_this);
@@ -692,138 +690,133 @@ var IssueEdit = function (_React$Component) {
   }
 
   _createClass(IssueEdit, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       this.loadData();
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       if (prevProps.params.id !== this.props.params.id) {
         this.loadData();
       }
     }
   }, {
-    key: "onChange",
+    key: 'onChange',
     value: function onChange(event) {
       var issue = Object.assign({}, this.state.issue);
       issue[event.target.name] = event.target.value;
       this.setState({ issue: issue });
     }
   }, {
-    key: "loadData",
+    key: 'loadData',
     value: function loadData() {
       var _this2 = this;
 
-      fetch("/api/issues/" + this.props.params.id).then(function (response) {
+      fetch('/api/issues/' + this.props.params.id).then(function (response) {
         if (response.ok) {
           response.json().then(function (issue) {
             issue.created = new Date(issue.created).toDateString();
-            issue.completionDate = issue.completionDate != null ? new Date(issue.completionDate).toDateString() : "";
-            issue.effort = issue.effort != null ? issue.effort.toString() : "";
+            issue.completionDate = issue.completionDate !== null ? new Date(issue.completionDate).toDateString() : '';
+            issue.effort = issue.effort !== null ? issue.effort.toString() : '';
             _this2.setState({ issue: issue });
           });
         } else {
           response.json().then(function (error) {
-            alert("Failed to fetch issue: " + error.message);
+            alert('Failed to fetch issue: ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert("Error in fetching data from server: " + err.message);
+        alert('Error in fetching data from server: ' + err.message);
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var issue = this.state.issue;
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
         _react2.default.createElement(
-          "form",
+          'form',
           null,
-          "ID: ",
+          'ID: ',
           issue._id,
-          _react2.default.createElement("br", null),
-          "Created: ",
+          _react2.default.createElement('br', null),
+          'Created: ',
           issue.created,
-          _react2.default.createElement("br", null),
-          "Status:",
-          " ",
+          _react2.default.createElement('br', null),
+          'Status:',
           _react2.default.createElement(
-            "select",
-            { name: "status", value: issue.status, onChange: this.onChange },
+            'select',
+            { name: 'status', value: issue.status, onChange: this.onChange },
             _react2.default.createElement(
-              "option",
-              { value: "New" },
-              "New"
+              'option',
+              { value: 'New' },
+              'New'
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Open" },
-              "Open"
+              'option',
+              { value: 'Open' },
+              'Open'
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Assigned" },
-              "Assigned"
+              'option',
+              { value: 'Assigned' },
+              'Assigned'
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Fixed" },
-              "Fixed"
+              'option',
+              { value: 'Fixed' },
+              'Fixed'
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Verified" },
-              "Verified"
+              'option',
+              { value: 'Verified' },
+              'Verified'
             ),
             _react2.default.createElement(
-              "option",
-              { value: "Closed" },
-              "Closed"
+              'option',
+              { value: 'Closed' },
+              'Closed'
             )
           ),
-          _react2.default.createElement("br", null),
-          "Owner:",
-          " ",
-          _react2.default.createElement("input", { name: "owner", value: issue.owner, onChange: this.onChange }),
-          _react2.default.createElement("br", null),
-          "Effort:",
-          " ",
-          _react2.default.createElement("input", {
+          _react2.default.createElement('br', null),
+          'Owner:',
+          _react2.default.createElement('input', { name: 'owner', value: issue.owner, onChange: this.onChange }),
+          _react2.default.createElement('br', null),
+          'Effort:',
+          _react2.default.createElement('input', {
             size: 5,
-            name: "effort",
+            name: 'effort',
             value: issue.effort,
             onChange: this.onChange
           }),
-          _react2.default.createElement("br", null),
-          "Completion Date:",
-          " ",
-          _react2.default.createElement("input", {
-            name: "completionDate",
+          _react2.default.createElement('br', null),
+          'Completion Date:',
+          _react2.default.createElement('input', {
+            name: 'completionDate',
             value: issue.completionDate,
             onChange: this.onChange
           }),
-          _react2.default.createElement("br", null),
-          "Title:",
-          " ",
-          _react2.default.createElement("input", {
-            name: "title",
+          _react2.default.createElement('br', null),
+          'Title:',
+          _react2.default.createElement('input', {
+            name: 'title',
             size: 50,
             value: issue.title,
             onChange: this.onChange
           }),
-          _react2.default.createElement("br", null),
+          _react2.default.createElement('br', null),
           _react2.default.createElement(
-            "button",
-            { type: "submit" },
-            "Submit"
+            'button',
+            { type: 'submit' },
+            'Submit'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
-            { to: "/issues" },
-            "Back to issue list"
+            { to: '/issues' },
+            'Back to issue list'
           )
         )
       );

@@ -8,12 +8,12 @@ const validIssueStatus = {
 };
 
 const issueFieldType = {
-  status: "required",
-  owner: "required",
-  effort: "optional",
-  created: "required",
-  completionDate: "optional",
-  title: "required"
+  status: 'required',
+  owner: 'required',
+  effort: 'optional',
+  created: 'required',
+  completionDate: 'optional',
+  title: 'required'
 };
 
 function cleanupIssue(issue) {
@@ -27,14 +27,16 @@ function cleanupIssue(issue) {
 function validateIssue(issue) {
   const errors = [];
   Object.keys(issueFieldType).forEach(field => {
-    if (issueFieldType[field] === "required" && !issue[field]) {
+    if (issueFieldType[field] === 'required' && !issue[field]) {
       errors.push(`Missing mandatory field: ${field}`);
     }
   });
+
   if (!validIssueStatus[issue.status]) {
     errors.push(`${issue.status} is not a valid status.`);
   }
-  return errors.length ? errors.join("; ") : null;
+
+  return errors.length ? errors.join('; ') : null;
 }
 
 export default {

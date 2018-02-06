@@ -5,4 +5,3 @@ require("babel-register")({
 });
 
 require("./server.js");
-//# sourceMappingURL=start_hook.js.map

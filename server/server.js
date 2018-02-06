@@ -1,20 +1,20 @@
-import SourceMapSupport from "source-map-support";
+import SourceMapSupport from 'source-map-support';
 SourceMapSupport.install();
-import "babel-polyfill";
+import 'babel-polyfill';
 
-import path from "path";
-import express from "express";
-import bodyParser from "body-parser";
-import { MongoClient, ObjectId } from "mongodb";
-import Issue from "./issue.js";
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient, ObjectId } from 'mongodb';
+import Issue from './issue.js';
 
 const app = express();
-app.use(express.static("static"));
+app.use(express.static('static'));
 app.use(bodyParser.json());
 
 let db;
 
-app.get("/api/issues", (req, res) => {
+app.get('/api/issues', (req, res) => {
   const filter = {};
   if (req.query.status) filter.status = req.query.status;
   if (req.query.effort_lte || req.query.effort_gte) filter.effort = {};
@@ -24,7 +24,7 @@ app.get("/api/issues", (req, res) => {
     filter.effort.$gte = parseInt(req.query.effort_gte, 10);
 
   db
-    .collection("issues")
+    .collection('issues')
     .find(filter)
     .toArray()
     .then(issues => {
@@ -37,11 +37,11 @@ app.get("/api/issues", (req, res) => {
     });
 });
 
-app.post("/api/issues", (req, res) => {
+app.post('/api/issues', (req, res) => {
   const newIssue = req.body;
   newIssue.created = new Date();
   if (!newIssue.status) {
-    newIssue.status = "New";
+    newIssue.status = 'New';
   }
 
   const err = Issue.validateIssue(newIssue);
@@ -51,11 +51,11 @@ app.post("/api/issues", (req, res) => {
   }
 
   db
-    .collection("issues")
+    .collection('issues')
     .insertOne(Issue.cleanupIssue(newIssue))
     .then(result =>
       db
-        .collection("issues")
+        .collection('issues')
         .find({ _id: result.insertedId })
         .limit(1)
         .next()
@@ -69,7 +69,7 @@ app.post("/api/issues", (req, res) => {
     });
 });
 
-app.get("/api/issues/:id", (req, res) => {
+app.get('/api/issues/:id', (req, res) => {
   let issueId;
   try {
     issueId = new ObjectId(req.params.id);
@@ -79,7 +79,7 @@ app.get("/api/issues/:id", (req, res) => {
   }
 
   db
-    .collection("issues")
+    .collection('issues')
     .find({ _id: issueId })
     .limit(1)
     .next()
@@ -94,17 +94,17 @@ app.get("/api/issues/:id", (req, res) => {
     });
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve("static/index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('static/index.html'));
 });
 
-MongoClient.connect("mongodb://localhost/issuetracker")
+MongoClient.connect('mongodb://localhost/issuetracker')
   .then(connection => {
     db = connection;
     app.listen(3000, () => {
-      console.log("App started on port 3000");
+      console.log('App started on port 3000');
     });
   })
   .catch(error => {
-    console.log("ERROR:", error);
+    console.log('ERROR:', error);
   });

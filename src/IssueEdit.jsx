@@ -1,20 +1,20 @@
-import React from "react";
-import { Link } from "react-router";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default class IssueEdit extends React.Component {
   constructor() {
     super();
     this.state = {
       issue: {
-        _id: "",
-        title: "",
-        status: "",
-        owner: "",
-        effort: "",
-        completionDate: "",
-        created: "",
-      },
+        _id: '',
+        title: '',
+        status: '',
+        owner: '',
+        effort: '',
+        completionDate: '',
+        created: ''
+      }
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -44,8 +44,8 @@ export default class IssueEdit extends React.Component {
             issue.completionDate =
               issue.completionDate !== null
                 ? new Date(issue.completionDate).toDateString()
-                : "";
-            issue.effort = issue.effort !== null ? issue.effort.toString() : "";
+                : '';
+            issue.effort = issue.effort !== null ? issue.effort.toString() : '';
             this.setState({ issue });
           });
         } else {
@@ -68,7 +68,7 @@ export default class IssueEdit extends React.Component {
           <br />
           Created: {issue.created}
           <br />
-          Status:{" "}
+          Status:
           <select name="status" value={issue.status} onChange={this.onChange}>
             <option value="New">New</option>
             <option value="Open">Open</option>
@@ -78,10 +78,10 @@ export default class IssueEdit extends React.Component {
             <option value="Closed">Closed</option>
           </select>
           <br />
-          Owner:{" "}
+          Owner:
           <input name="owner" value={issue.owner} onChange={this.onChange} />
           <br />
-          Effort:{" "}
+          Effort:
           <input
             size={5}
             name="effort"
@@ -89,14 +89,14 @@ export default class IssueEdit extends React.Component {
             onChange={this.onChange}
           />
           <br />
-          Completion Date:{" "}
+          Completion Date:
           <input
             name="completionDate"
             value={issue.completionDate}
             onChange={this.onChange}
           />
           <br />
-          Title:{" "}
+          Title:
           <input
             name="title"
             size={50}
