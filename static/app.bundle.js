@@ -6,7 +6,7 @@ webpackJsonp([0],{
 "use strict";
 
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -102,7 +102,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -110,7 +110,7 @@ __webpack_require__(207);
 
 var _reactRouter = __webpack_require__(92);
 
-var _propTypes = __webpack_require__(21);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -131,107 +131,122 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var IssueRow = function IssueRow(props) {
+  function onDeleteClick() {
+    props.deleteIssue(props.issue._id);
+  }
+
   return _react2.default.createElement(
-    "tr",
+    'tr',
     null,
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       _react2.default.createElement(
         _reactRouter.Link,
-        { to: "/issues/" + props.issue._id },
+        { to: '/issues/' + props.issue._id },
         props.issue._id.substr(-4)
       )
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       props.issue.status
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       props.issue.owner
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       props.issue.created.toDateString()
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       props.issue.effort
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
-      props.issue.completionDate ? props.issue.completionDate.toDateString() : ""
+      props.issue.completionDate ? props.issue.completionDate.toDateString() : ''
     ),
     _react2.default.createElement(
-      "td",
+      'td',
       null,
       props.issue.title
+    ),
+    _react2.default.createElement(
+      'td',
+      null,
+      _react2.default.createElement(
+        'button',
+        { onClick: onDeleteClick },
+        'Delete'
+      )
     )
   );
 };
 
 IssueRow.propTypes = {
-  issue: _react2.default.PropTypes.object.isRequired
+  issue: _react2.default.PropTypes.object.isRequired,
+  deleteIssue: _react2.default.PropTypes.func.isRequired
 };
 
 function IssueTable(props) {
   var issueRows = props.issues.map(function (issue) {
-    return _react2.default.createElement(IssueRow, { key: issue._id, issue: issue });
+    return _react2.default.createElement(IssueRow, { key: issue._id, issue: issue, deleteIssue: props.deleteIssue });
   });
   return _react2.default.createElement(
-    "table",
-    { className: "bordered-table" },
+    'table',
+    { className: 'bordered-table' },
     _react2.default.createElement(
-      "thead",
+      'thead',
       null,
       _react2.default.createElement(
-        "tr",
+        'tr',
         null,
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Id"
+          'Id'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Status"
+          'Status'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Owner"
+          'Owner'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Created"
+          'Created'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Effort"
+          'Effort'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Completion Date"
+          'Completion Date'
         ),
         _react2.default.createElement(
-          "th",
+          'th',
           null,
-          "Title"
-        )
+          'Title'
+        ),
+        _react2.default.createElement('th', null)
       )
     ),
     _react2.default.createElement(
-      "tbody",
+      'tbody',
       null,
       issueRows
     )
@@ -239,7 +254,8 @@ function IssueTable(props) {
 }
 
 IssueTable.propTypes = {
-  issues: _react2.default.PropTypes.array.isRequired
+  issues: _react2.default.PropTypes.array.isRequired,
+  deleteIssue: _react2.default.PropTypes.func.isRequired
 };
 
 var IssueList = function (_React$Component) {
@@ -254,16 +270,17 @@ var IssueList = function (_React$Component) {
 
     _this.createIssue = _this.createIssue.bind(_this);
     _this.setFilter = _this.setFilter.bind(_this);
+    _this.deleteIssue = _this.deleteIssue.bind(_this);
     return _this;
   }
 
   _createClass(IssueList, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       this.loadData();
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var oldQuery = prevProps.location.query;
       var newQuery = this.props.location.query;
@@ -273,16 +290,16 @@ var IssueList = function (_React$Component) {
       this.loadData();
     }
   }, {
-    key: "setFilter",
+    key: 'setFilter',
     value: function setFilter(query) {
       this.props.router.push({ pathname: this.props.location.pathname, query: query });
     }
   }, {
-    key: "loadData",
+    key: 'loadData',
     value: function loadData() {
       var _this2 = this;
 
-      fetch("/api/issues" + this.props.location.search).then(function (response) {
+      fetch('/api/issues' + this.props.location.search).then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
             data.records.forEach(function (issue) {
@@ -295,21 +312,21 @@ var IssueList = function (_React$Component) {
           });
         } else {
           response.json().then(function (error) {
-            alert("Failed to fetch issues " + error.message);
+            alert('Failed to fetch issues ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert("Error in fetching data from server: " + err);
+        alert('Error in fetching data from server: ' + err);
       });
     }
   }, {
-    key: "createIssue",
+    key: 'createIssue',
     value: function createIssue(newIssue) {
       var _this3 = this;
 
-      fetch("/api/issues", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      fetch('/api/issues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newIssue)
       }).then(function (response) {
         if (response.ok) {
@@ -323,26 +340,35 @@ var IssueList = function (_React$Component) {
           });
         } else {
           response.json().then(function (error) {
-            alert("Failed to add issue: " + error.message);
+            alert('Failed to add issue: ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert("Error in sending data to server: " + err.message);
+        alert('Error in sending data to server: ' + err.message);
       });
     }
   }, {
-    key: "render",
+    key: 'deleteIssue',
+    value: function deleteIssue(id) {
+      var _this4 = this;
+
+      fetch('/api/issues/' + id, { method: 'DELETE' }).then(function (response) {
+        if (!response.ok) alert('Failed to delete issue');else _this4.loadDate();
+      });
+    }
+  }, {
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
         _react2.default.createElement(_IssueFilter2.default, {
           setFilter: this.setFilter,
           initFilter: this.props.location.query
         }),
-        _react2.default.createElement("hr", null),
-        _react2.default.createElement(IssueTable, { issues: this.state.issues }),
-        _react2.default.createElement("hr", null),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(IssueTable, { issues: this.state.issues, deleteIssue: this.deleteIssue }),
+        _react2.default.createElement('hr', null),
         _react2.default.createElement(_IssueAdd2.default, { createIssue: this.createIssue })
       );
     }
@@ -373,7 +399,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -452,11 +478,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(21);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -648,15 +674,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(18);
+var _react = __webpack_require__(17);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(92);
 
-var _propTypes = __webpack_require__(21);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _NumInput = __webpack_require__(372);
+
+var _NumInput2 = _interopRequireDefault(_NumInput);
+
+var _DateInput = __webpack_require__(373);
+
+var _DateInput2 = _interopRequireDefault(_DateInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -680,12 +714,15 @@ var IssueEdit = function (_React$Component) {
         title: '',
         status: '',
         owner: '',
-        effort: '',
-        completionDate: '',
-        created: ''
-      }
+        effort: null,
+        completionDate: null,
+        created: null
+      },
+      invalidFields: {}
     };
     _this.onChange = _this.onChange.bind(_this);
+    _this.onValidityChange = _this.onValidityChange.bind(_this);
+    _this.onSubmit = _this.onSubmit.bind(_this);
     return _this;
   }
 
@@ -703,23 +740,67 @@ var IssueEdit = function (_React$Component) {
     }
   }, {
     key: 'onChange',
-    value: function onChange(event) {
+    value: function onChange(event, convertedValue) {
       var issue = Object.assign({}, this.state.issue);
-      issue[event.target.name] = event.target.value;
+      var value = convertedValue !== undefined ? convertedValue : event.target.value;
+      issue[event.target.name] = value;
       this.setState({ issue: issue });
+    }
+  }, {
+    key: 'onValidityChange',
+    value: function onValidityChange(event, valid) {
+      var invalidFields = Object.assign({}, this.state.invalidFields);
+      if (!valid) {
+        invalidFields[event.target.name] = true;
+      } else {
+        delete invalidFields[event.target.name];
+      }
+      this.setState({ invalidFields: invalidFields });
+    }
+  }, {
+    key: 'onSubmit',
+    value: function onSubmit(event) {
+      var _this2 = this;
+
+      event.preventDefault();
+      if (Object.keys(this.state.invalidFields).length !== 0) {
+        return;
+      }
+
+      fetch('/api/issues/' + this.props.params.id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.issue)
+      }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (updatedIssue) {
+            updatedIssue.created = new Date(updatedIssue.created);
+            if (updatedIssue.completionDate) {
+              updatedIssue.completionDate = new Date(updatedIssue.completionDate);
+            }
+            _this2.setState({ issue: updatedIssue });
+            alert('Updated issue successfully!');
+          });
+        } else {
+          response.json().then(function (error) {
+            alert('Failed to update issue: ' + error.message);
+          });
+        }
+      }).catch(function (err) {
+        alert('Error in sending data to server: ' + err.message);
+      });
     }
   }, {
     key: 'loadData',
     value: function loadData() {
-      var _this2 = this;
+      var _this3 = this;
 
       fetch('/api/issues/' + this.props.params.id).then(function (response) {
         if (response.ok) {
           response.json().then(function (issue) {
-            issue.created = new Date(issue.created).toDateString();
-            issue.completionDate = issue.completionDate !== null ? new Date(issue.completionDate).toDateString() : '';
-            issue.effort = issue.effort !== null ? issue.effort.toString() : '';
-            _this2.setState({ issue: issue });
+            issue.created = new Date(issue.created);
+            issue.completionDate = issue.completionDate !== null ? new Date(issue.completionDate) : null;
+            _this3.setState({ issue: issue });
           });
         } else {
           response.json().then(function (error) {
@@ -734,17 +815,22 @@ var IssueEdit = function (_React$Component) {
     key: 'render',
     value: function render() {
       var issue = this.state.issue;
+      var validationMessage = Object.keys(this.state.invalidFields).length === 0 ? null : _react2.default.createElement(
+        'div',
+        { className: 'error' },
+        'Please correct invalid fields before submitting.'
+      );
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'form',
-          null,
+          { onSubmit: this.onSubmit },
           'ID: ',
           issue._id,
           _react2.default.createElement('br', null),
           'Created: ',
-          issue.created,
+          issue.created ? issue.created.toDateString() : '',
           _react2.default.createElement('br', null),
           'Status:',
           _react2.default.createElement(
@@ -786,7 +872,7 @@ var IssueEdit = function (_React$Component) {
           _react2.default.createElement('input', { name: 'owner', value: issue.owner, onChange: this.onChange }),
           _react2.default.createElement('br', null),
           'Effort:',
-          _react2.default.createElement('input', {
+          _react2.default.createElement(_NumInput2.default, {
             size: 5,
             name: 'effort',
             value: issue.effort,
@@ -794,10 +880,11 @@ var IssueEdit = function (_React$Component) {
           }),
           _react2.default.createElement('br', null),
           'Completion Date:',
-          _react2.default.createElement('input', {
+          _react2.default.createElement(_DateInput2.default, {
             name: 'completionDate',
             value: issue.completionDate,
-            onChange: this.onChange
+            onChange: this.onChange,
+            onValidityChange: this.onValidityChange
           }),
           _react2.default.createElement('br', null),
           'Title:',
@@ -808,6 +895,7 @@ var IssueEdit = function (_React$Component) {
             onChange: this.onChange
           }),
           _react2.default.createElement('br', null),
+          validationMessage,
           _react2.default.createElement(
             'button',
             { type: 'submit' },
@@ -828,9 +916,228 @@ var IssueEdit = function (_React$Component) {
 
 exports.default = IssueEdit;
 
+
 IssueEdit.propTypes = {
   params: _propTypes2.default.object.isRequired
 };
+
+/***/ }),
+
+/***/ 372:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(20);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NumInput = function (_React$Component) {
+  _inherits(NumInput, _React$Component);
+
+  function NumInput(props) {
+    _classCallCheck(this, NumInput);
+
+    var _this = _possibleConstructorReturn(this, (NumInput.__proto__ || Object.getPrototypeOf(NumInput)).call(this, props));
+
+    _this.state = { value: _this.format(props.value) };
+    _this.onBlur = _this.onBlur.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(NumInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      this.setState({ value: this.format(newProps.value) });
+    }
+  }, {
+    key: 'onBlur',
+    value: function onBlur(e) {
+      this.props.onChange(e, this.unformat(this.state.value));
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(e) {
+      if (e.target.value.match(/^\d*$/)) {
+        this.setState({ value: e.target.value });
+      }
+    }
+  }, {
+    key: 'format',
+    value: function format(num) {
+      return num != null ? num.toString() : '';
+    }
+  }, {
+    key: 'unformat',
+    value: function unformat(str) {
+      var val = parseInt(str, 10);
+      return isNaN(val) ? null : val;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('input', _extends({
+        type: 'text'
+      }, this.props, {
+        value: this.state.value,
+        onBlur: this.onBlur,
+        onChange: this.onChange
+      }));
+    }
+  }]);
+
+  return NumInput;
+}(_react2.default.Component);
+
+exports.default = NumInput;
+
+
+NumInput.propTypes = {
+  value: _react2.default.PropTypes.number,
+  onChange: _react2.default.PropTypes.func.isRequired
+};
+
+NumInput.propTypes = {
+  value: _propTypes2.default.number,
+  onChange: _propTypes2.default.func.isRequired
+};
+
+/***/ }),
+
+/***/ 373:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DateInput = function (_React$Component) {
+  _inherits(DateInput, _React$Component);
+
+  function DateInput(props) {
+    _classCallCheck(this, DateInput);
+
+    var _this = _possibleConstructorReturn(this, (DateInput.__proto__ || Object.getPrototypeOf(DateInput)).call(this, props));
+
+    _this.state = {
+      value: _this.editFormat(props.value),
+      focused: false,
+      valid: true
+    };
+    _this.onFocus = _this.onFocus.bind(_this);
+    _this.onBlur = _this.onBlur.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(DateInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      if (newProps.value !== this.props.value) {
+        this.setState({ value: this.editFormat(newProps.value) });
+      }
+    }
+  }, {
+    key: 'onFocus',
+    value: function onFocus() {
+      this.setState({ focused: true });
+    }
+  }, {
+    key: 'onBlur',
+    value: function onBlur(e) {
+      var value = this.unformat(this.state.value);
+      var valid = this.state.value === '' || value != null;
+      if (valid !== this.state.valid && this.props.onValidityChange) {
+        this.props.onValidityChange(e, valid);
+      }
+      this.setState({ focused: false, valid: valid });
+      if (valid) this.props.onChange(e, value);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(e) {
+      if (e.target.value.match(/^[\d-]*$/)) {
+        this.setState({ value: e.target.value });
+      }
+    }
+  }, {
+    key: 'displayFormat',
+    value: function displayFormat(date) {
+      return date != null ? date.toDateString() : '';
+    }
+  }, {
+    key: 'editFormat',
+    value: function editFormat(date) {
+      return date != null ? date.toISOString().substr(0, 10) : '';
+    }
+  }, {
+    key: 'unformat',
+    value: function unformat(str) {
+      var val = new Date(str);
+      return isNaN(val.getTime()) ? null : val;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var className = !this.state.valid && !this.state.focused ? 'invalid' : null;
+      var value = this.state.focused || !this.state.valid ? this.state.value : this.displayFormat(this.props.value);
+      return _react2.default.createElement('input', {
+        type: 'text',
+        size: 20,
+        name: this.props.name,
+        className: className,
+        value: value,
+        placeholder: this.state.focused ? 'yyyy-mm-dd' : null,
+        onFocus: this.onFocus,
+        onBlur: this.onBlur,
+        onChange: this.onChange
+      });
+    }
+  }]);
+
+  return DateInput;
+}(_react2.default.Component);
+
+exports.default = DateInput;
 
 /***/ })
 
