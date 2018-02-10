@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 361:
+/***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108,7 +108,7 @@ Toast.defaultProps = {
 "use strict";
 
 
-__webpack_require__(235);
+__webpack_require__(236);
 
 var _react = __webpack_require__(1);
 
@@ -118,7 +118,7 @@ var _reactDom = __webpack_require__(32);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouter = __webpack_require__(200);
+var _reactRouter = __webpack_require__(142);
 
 var _reactBootstrap = __webpack_require__(83);
 
@@ -128,9 +128,13 @@ var _IssueList = __webpack_require__(824);
 
 var _IssueList2 = _interopRequireDefault(_IssueList);
 
-var _IssueEdit = __webpack_require__(827);
+var _IssueEdit = __webpack_require__(826);
 
 var _IssueEdit2 = _interopRequireDefault(_IssueEdit);
+
+var _IssueAddNavItem = __webpack_require__(829);
+
+var _IssueAddNavItem2 = _interopRequireDefault(_IssueAddNavItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -181,12 +185,7 @@ var Header = function Header() {
     _react2.default.createElement(
       _reactBootstrap.Nav,
       { pullRight: true },
-      _react2.default.createElement(
-        _reactBootstrap.NavItem,
-        null,
-        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'plus' }),
-        'Create Issue'
-      ),
+      _react2.default.createElement(_IssueAddNavItem2.default, null),
       _react2.default.createElement(
         _reactBootstrap.NavDropdown,
         {
@@ -224,7 +223,7 @@ var App = function App(props) {
           ' ',
           _react2.default.createElement(
             'a',
-            { href: 'https://github.com/username1001/issue-tracker' },
+            { href: 'https://github.com/username1001/issue-tracker', target: '_blank' },
             'Github'
           )
         )
@@ -272,9 +271,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(360);
+__webpack_require__(361);
 
-var _reactRouter = __webpack_require__(200);
+var _reactRouter = __webpack_require__(142);
 
 var _propTypes = __webpack_require__(8);
 
@@ -282,15 +281,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactBootstrap = __webpack_require__(83);
 
-var _IssueAdd = __webpack_require__(825);
-
-var _IssueAdd2 = _interopRequireDefault(_IssueAdd);
-
-var _IssueFilter = __webpack_require__(826);
+var _IssueFilter = __webpack_require__(825);
 
 var _IssueFilter2 = _interopRequireDefault(_IssueFilter);
 
-var _Toast = __webpack_require__(361);
+var _Toast = __webpack_require__(235);
 
 var _Toast2 = _interopRequireDefault(_Toast);
 
@@ -445,7 +440,6 @@ var IssueList = function (_React$Component) {
       toastType: 'success'
     };
 
-    _this.createIssue = _this.createIssue.bind(_this);
     _this.setFilter = _this.setFilter.bind(_this);
     _this.deleteIssue = _this.deleteIssue.bind(_this);
     _this.showError = _this.showError.bind(_this);
@@ -513,40 +507,12 @@ var IssueList = function (_React$Component) {
       });
     }
   }, {
-    key: 'createIssue',
-    value: function createIssue(newIssue) {
-      var _this3 = this;
-
-      fetch('/api/issues', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newIssue)
-      }).then(function (response) {
-        if (response.ok) {
-          response.json().then(function (updatedIssue) {
-            updatedIssue.created = new Date(updatedIssue.created);
-            if (updatedIssue.completionDate) {
-              updatedIssue.completionDate = new Date(updatedIssue.completionDate);
-            }
-            var newIssues = _this3.state.issues.concat(updatedIssue);
-            _this3.setState({ issues: newIssues });
-          });
-        } else {
-          response.json().then(function (error) {
-            _this3.showError('Failed to add issue: ' + error.message);
-          });
-        }
-      }).catch(function (err) {
-        _this3.showError('Error in sending data to server: ' + err.message);
-      });
-    }
-  }, {
     key: 'deleteIssue',
     value: function deleteIssue(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       fetch('/api/issues/' + id, { method: 'DELETE' }).then(function (response) {
-        if (!response.ok) alert('Failed to delete issue');else _this4.loadData();
+        if (!response.ok) alert('Failed to delete issue');else _this3.loadData();
       });
     }
   }, {
@@ -564,7 +530,6 @@ var IssueList = function (_React$Component) {
           })
         ),
         _react2.default.createElement(IssueTable, { issues: this.state.issues, deleteIssue: this.deleteIssue }),
-        _react2.default.createElement(_IssueAdd2.default, { createIssue: this.createIssue }),
         _react2.default.createElement(_Toast2.default, {
           showing: this.state.toastVisible,
           message: this.state.toastMessage,
@@ -589,87 +554,6 @@ IssueList.propTypes = {
 /***/ }),
 
 /***/ 825:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactBootstrap = __webpack_require__(83);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IssueAdd = function (_React$Component) {
-  _inherits(IssueAdd, _React$Component);
-
-  function IssueAdd() {
-    _classCallCheck(this, IssueAdd);
-
-    var _this = _possibleConstructorReturn(this, (IssueAdd.__proto__ || Object.getPrototypeOf(IssueAdd)).call(this));
-
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    return _this;
-  }
-
-  _createClass(IssueAdd, [{
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      var form = document.forms.issueAdd;
-      this.props.createIssue({
-        owner: form.owner.value,
-        title: form.title.value,
-        status: 'New',
-        created: new Date()
-      });
-      // clear the form for the next input
-      form.owner.value = '';
-      form.title.value = '';
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactBootstrap.Form,
-          { inline: true, name: 'issueAdd', onSubmit: this.handleSubmit },
-          _react2.default.createElement(_reactBootstrap.FormControl, { name: 'owner', placeholder: 'Owner' }),
-          _react2.default.createElement(_reactBootstrap.FormControl, { name: 'title', placeholder: 'Title' }),
-          _react2.default.createElement(
-            _reactBootstrap.Button,
-            { type: 'submit', bsStyle: 'primary' },
-            'Add'
-          )
-        )
-      );
-    }
-  }]);
-
-  return IssueAdd;
-}(_react2.default.Component);
-
-exports.default = IssueAdd;
-
-/***/ }),
-
-/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -918,7 +802,7 @@ IssueFilter.propTypes = {
 
 /***/ }),
 
-/***/ 827:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -942,15 +826,15 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _NumInput = __webpack_require__(828);
+var _NumInput = __webpack_require__(827);
 
 var _NumInput2 = _interopRequireDefault(_NumInput);
 
-var _DateInput = __webpack_require__(829);
+var _DateInput = __webpack_require__(828);
 
 var _DateInput2 = _interopRequireDefault(_DateInput);
 
-var _Toast = __webpack_require__(361);
+var _Toast = __webpack_require__(235);
 
 var _Toast2 = _interopRequireDefault(_Toast);
 
@@ -1359,7 +1243,7 @@ IssueEdit.propTypes = {
 
 /***/ }),
 
-/***/ 828:
+/***/ 827:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1462,7 +1346,7 @@ NumInput.propTypes = {
 
 /***/ }),
 
-/***/ 829:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1575,6 +1459,208 @@ var DateInput = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = DateInput;
+
+/***/ }),
+
+/***/ 829:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(142);
+
+var _reactBootstrap = __webpack_require__(83);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Toast = __webpack_require__(235);
+
+var _Toast2 = _interopRequireDefault(_Toast);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var IssueAddNavItem = function (_React$Component) {
+  _inherits(IssueAddNavItem, _React$Component);
+
+  function IssueAddNavItem(props) {
+    _classCallCheck(this, IssueAddNavItem);
+
+    var _this = _possibleConstructorReturn(this, (IssueAddNavItem.__proto__ || Object.getPrototypeOf(IssueAddNavItem)).call(this, props));
+
+    _this.state = {
+      showing: false,
+      toastVisible: false,
+      toastMessage: '',
+      toastType: 'success'
+    };
+    _this.showModal = _this.showModal.bind(_this);
+    _this.hideModal = _this.hideModal.bind(_this);
+    _this.submit = _this.submit.bind(_this);
+    _this.showError = _this.showError.bind(_this);
+    _this.dismissToast = _this.dismissToast.bind(_this);
+    return _this;
+  }
+
+  _createClass(IssueAddNavItem, [{
+    key: 'showModal',
+    value: function showModal() {
+      this.setState({ showing: true });
+    }
+  }, {
+    key: 'hideModal',
+    value: function hideModal() {
+      this.setState({ showing: false });
+    }
+  }, {
+    key: 'showError',
+    value: function showError(message) {
+      this.setState({
+        toastVisible: true,
+        toastMessage: message,
+        toastType: 'danger'
+      });
+    }
+  }, {
+    key: 'dismissToast',
+    value: function dismissToast() {
+      this.setState({ toastVisible: false });
+    }
+  }, {
+    key: 'submit',
+    value: function submit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.hideModal();
+      var form = document.forms.issueAdd;
+      var newIssue = {
+        owner: form.owner.value,
+        title: form.title.value,
+        status: 'New',
+        created: new Date()
+      };
+      fetch('/api/issues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newIssue)
+      }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (updatedIssue) {
+            _this2.props.router.push('/issues/' + updatedIssue._id);
+          });
+        } else {
+          response.json().then(function (error) {
+            _this2.showError('Failed to add issue: ' + error.message);
+          });
+        }
+      }).catch(function (err) {
+        _this2.showError('Error in sending date to server: ' + err.message);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactBootstrap.NavItem,
+        { onClick: this.showModal },
+        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'plus' }),
+        ' Create Issue',
+        _react2.default.createElement(
+          _reactBootstrap.Modal,
+          { keyboard: true, show: this.state.showing, onHide: this.hideModal },
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Header,
+            { closeButton: true },
+            _react2.default.createElement(
+              _reactBootstrap.Modal.Title,
+              null,
+              'Create Issue'
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Body,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Form,
+              { name: 'issueAdd' },
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Title'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, { name: 'title', autoFocus: true })
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Owner'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, { name: 'owner' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Footer,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.ButtonToolbar,
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { type: 'button', bsStyle: 'primary', onClick: this.submit },
+                'Submit'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { bsStyle: 'link', onClick: this.hideModal },
+                'Cancel'
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(_Toast2.default, {
+          showing: this.state.toastVisible,
+          message: this.state.toastMessage,
+          onDismiss: this.dismissToast,
+          bsStyle: this.state.toastType
+        })
+      );
+    }
+  }]);
+
+  return IssueAddNavItem;
+}(_react2.default.Component);
+
+IssueAddNavItem.propTypes = {
+  router: _propTypes2.default.object
+};
+
+exports.default = (0, _reactRouter.withRouter)(IssueAddNavItem);
 
 /***/ })
 

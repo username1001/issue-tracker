@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "compile": "webpack",
-    "compile-server": "babel server --presets es2015-node4 --out-dir dist --source maps",
-    "watch-server": "babel server --presets es2015-node4 --out-dir dist --source-maps --watch",
+    "compile-server":
+      "babel server --presets es2015-node4 --out-dir dist --source maps",
+    "watch-server":
+      "babel server --presets es2015-node4 --out-dir dist --source-maps --watch",
     "watch": "webpack-dev-server --hot --inline",
     "start": "nodemon -w dist dist/server.js",
     "start-hook": "nodemon -w server server/start_hook.js",

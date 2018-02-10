@@ -11,7 +11,7 @@ import {
   Button,
   ButtonToolbar
 } from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
 import Toast from './Toast.jsx';
 
 class IssueAddNavItem extends React.Component {
@@ -57,7 +57,7 @@ class IssueAddNavItem extends React.Component {
       owner: form.owner.value,
       title: form.title.value,
       status: 'New',
-      created: new date()
+      created: new Date()
     };
     fetch('/api/issues', {
       method: 'POST',
@@ -120,6 +120,7 @@ class IssueAddNavItem extends React.Component {
     );
   }
 }
+
 IssueAddNavItem.propTypes = {
   router: PropTypes.object
 };
