@@ -18,7 +18,7 @@ const App = props => (
     <div className="header">
       <h1>Issue Tracker</h1>
     </div>
-    <div className="contents">{props.children}</div>
+    <div className="container-fluid">{props.children}</div>
     <div className="footer">
       Full source available at{' '}
       <a href="https://github.com/username1001/issue-tracker">github</a>
