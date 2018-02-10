@@ -24,6 +24,13 @@ function cleanupIssue(issue) {
   return cleanedUpIssue;
 }
 
+function convertIssue(issue) {
+  if (issue.created) issue.created = new Date(issue.created);
+  if (issue.completionDate)
+    issue.completionDate = new Date(issue.completionDate);
+  return cleanupIssue(issue);
+}
+
 function validateIssue(issue) {
   const errors = [];
   Object.keys(issueFieldType).forEach(field => {
@@ -41,5 +48,6 @@ function validateIssue(issue) {
 
 export default {
   validateIssue,
-  cleanupIssue
+  cleanupIssue,
+  convertIssue
 };
