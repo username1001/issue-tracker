@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
 export default class IssueAdd extends React.Component {
   constructor() {
@@ -12,22 +13,24 @@ export default class IssueAdd extends React.Component {
     this.props.createIssue({
       owner: form.owner.value,
       title: form.title.value,
-      status: "New",
+      status: 'New',
       created: new Date()
     });
     // clear the form for the next input
-    form.owner.value = "";
-    form.title.value = "";
+    form.owner.value = '';
+    form.title.value = '';
   }
 
   render() {
     return (
       <div>
-        <form name="issueAdd" onSubmit={this.handleSubmit}>
-          <input type="text" name="owner" placeholder="Owner" />
-          <input type="text" name="title" placeholder="Title" />
-          <button>Add</button>
-        </form>
+        <Form inline name="issueAdd" onSubmit={this.handleSubmit}>
+          <FormControl name="owner" placeholder="Owner" />
+          <FormControl name="title" placeholder="Title" />
+          <Button type="submit" bsStyle="primary">
+            Add
+          </Button>
+        </Form>
       </div>
     );
   }

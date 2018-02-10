@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -7,21 +8,61 @@ import {
   browserHistory,
   withRouter
 } from 'react-router';
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  NavDropdown,
+  MenuItem,
+  Glyphicon
+} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import IssueList from './IssueList.jsx';
 import IssueEdit from './IssueEdit.jsx';
 
 const contentNode = document.getElementById('contents');
 const NoMatch = () => <p>Page Not Found</p>;
 
+const Header = () => (
+  <Navbar fluid>
+    <Navbar.Header>
+      <Navbar.Brand>Issue Tracker</Navbar.Brand>
+    </Navbar.Header>
+    <Nav>
+      <LinkContainer to="/issues">
+        <NavItem>Issues</NavItem>
+      </LinkContainer>
+      <LinkContainer to="/reports">
+        <NavItem>Reports</NavItem>
+      </LinkContainer>
+    </Nav>
+    <Nav pullRight>
+      <NavItem>
+        <Glyphicon glyph="plus" />Create Issue
+      </NavItem>
+      <NavDropdown
+        id="user-dropdown"
+        title={<Glyphicon glyph="option-horizontal" />}
+        noCaret
+      >
+        <MenuItem>Logout</MenuItem>
+      </NavDropdown>
+    </Nav>
+  </Navbar>
+);
+
 const App = props => (
   <div>
-    <div className="header">
-      <h1>Issue Tracker</h1>
-    </div>
-    <div className="container-fluid">{props.children}</div>
-    <div className="footer">
-      Full source available at{' '}
-      <a href="https://github.com/username1001/issue-tracker">github</a>
+    <Header />
+    <div className="container-fluid">
+      {props.children}
+      <hr />
+      <h5>
+        <small>
+          Full source available at{' '}
+          <a href="https://github.com/username1001/issue-tracker">Github</a>
+        </small>
+      </h5>
     </div>
   </div>
 );
