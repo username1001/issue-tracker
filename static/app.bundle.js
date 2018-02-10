@@ -353,7 +353,7 @@ var IssueList = function (_React$Component) {
       var _this4 = this;
 
       fetch('/api/issues/' + id, { method: 'DELETE' }).then(function (response) {
-        if (!response.ok) alert('Failed to delete issue');else _this4.loadDate();
+        if (!response.ok) alert('Failed to delete issue');else _this4.loadData();
       });
     }
   }, {

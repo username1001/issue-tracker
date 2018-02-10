@@ -154,7 +154,7 @@ export default class IssueList extends React.Component {
   deleteIssue(id) {
     fetch(`/api/issues/${id}`, { method: 'DELETE' }).then(response => {
       if (!response.ok) alert('Failed to delete issue');
-      else this.loadDate();
+      else this.loadData();
     });
   }
 
