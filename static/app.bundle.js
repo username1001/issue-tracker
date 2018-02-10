@@ -6,9 +6,111 @@ webpackJsonp([0],{
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(83);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Toast = function (_React$Component) {
+  _inherits(Toast, _React$Component);
+
+  function Toast() {
+    _classCallCheck(this, Toast);
+
+    return _possibleConstructorReturn(this, (Toast.__proto__ || Object.getPrototypeOf(Toast)).apply(this, arguments));
+  }
+
+  _createClass(Toast, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.props.showing) {
+        clearTimeout(this.dismissTimer);
+        this.dismissTimer = setTimeout(this.props.onDismiss, 5000);
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearTimeout(this.dismissTimer);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactBootstrap.Collapse,
+        { 'in': this.props.showing },
+        _react2.default.createElement(
+          'div',
+          {
+            style: {
+              position: 'fixed',
+              top: 30,
+              left: 0,
+              right: 0,
+              textAlign: 'center'
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Alert,
+            {
+              style: { display: 'inline-block', width: 500 },
+              bsStyle: this.props.bsStyle,
+              onDismiss: this.props.onDismiss
+            },
+            this.props.message
+          )
+        )
+      );
+    }
+  }]);
+
+  return Toast;
+}(_react2.default.Component);
+
+exports.default = Toast;
+
+
+Toast.propTypes = {
+  showing: _propTypes2.default.bool.isRequired,
+  onDismiss: _propTypes2.default.func.isRequired,
+  bsStyle: _propTypes2.default.string,
+  message: _propTypes2.default.any.isRequired
+};
+
+Toast.defaultProps = {
+  bsStyle: 'success'
+};
+
+/***/ }),
+
+/***/ 362:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 __webpack_require__(235);
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -18,15 +120,15 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = __webpack_require__(200);
 
-var _reactBootstrap = __webpack_require__(97);
+var _reactBootstrap = __webpack_require__(83);
 
 var _reactRouterBootstrap = __webpack_require__(234);
 
-var _IssueList = __webpack_require__(823);
+var _IssueList = __webpack_require__(824);
 
 var _IssueList2 = _interopRequireDefault(_IssueList);
 
-var _IssueEdit = __webpack_require__(826);
+var _IssueEdit = __webpack_require__(827);
 
 var _IssueEdit2 = _interopRequireDefault(_IssueEdit);
 
@@ -154,7 +256,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 823:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -166,7 +268,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -178,15 +280,19 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactBootstrap = __webpack_require__(97);
+var _reactBootstrap = __webpack_require__(83);
 
-var _IssueAdd = __webpack_require__(824);
+var _IssueAdd = __webpack_require__(825);
 
 var _IssueAdd2 = _interopRequireDefault(_IssueAdd);
 
-var _IssueFilter = __webpack_require__(825);
+var _IssueFilter = __webpack_require__(826);
 
 var _IssueFilter2 = _interopRequireDefault(_IssueFilter);
+
+var _Toast = __webpack_require__(361);
+
+var _Toast2 = _interopRequireDefault(_Toast);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -332,11 +438,18 @@ var IssueList = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (IssueList.__proto__ || Object.getPrototypeOf(IssueList)).call(this));
 
-    _this.state = { issues: [] };
+    _this.state = {
+      issues: [],
+      toastVisible: false,
+      toastMessage: '',
+      toastType: 'success'
+    };
 
     _this.createIssue = _this.createIssue.bind(_this);
     _this.setFilter = _this.setFilter.bind(_this);
     _this.deleteIssue = _this.deleteIssue.bind(_this);
+    _this.showError = _this.showError.bind(_this);
+    _this.dismissToast = _this.dismissToast.bind(_this);
     return _this;
   }
 
@@ -361,6 +474,20 @@ var IssueList = function (_React$Component) {
       this.props.router.push({ pathname: this.props.location.pathname, query: query });
     }
   }, {
+    key: 'showError',
+    value: function showError(message) {
+      this.setState({
+        toastVisible: true,
+        toastMessage: message,
+        toastType: 'danger'
+      });
+    }
+  }, {
+    key: 'dismissToast',
+    value: function dismissToast() {
+      this.setState({ toastVisible: false });
+    }
+  }, {
     key: 'loadData',
     value: function loadData() {
       var _this2 = this;
@@ -378,11 +505,11 @@ var IssueList = function (_React$Component) {
           });
         } else {
           response.json().then(function (error) {
-            alert('Failed to fetch issues ' + error.message);
+            _this2.showError('Failed to fetch issues ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert('Error in fetching data from server: ' + err);
+        _this2.showError('Error in fetching data from server: ' + err);
       });
     }
   }, {
@@ -406,11 +533,11 @@ var IssueList = function (_React$Component) {
           });
         } else {
           response.json().then(function (error) {
-            alert('Failed to add issue: ' + error.message);
+            _this3.showError('Failed to add issue: ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert('Error in sending data to server: ' + err.message);
+        _this3.showError('Error in sending data to server: ' + err.message);
       });
     }
   }, {
@@ -437,7 +564,13 @@ var IssueList = function (_React$Component) {
           })
         ),
         _react2.default.createElement(IssueTable, { issues: this.state.issues, deleteIssue: this.deleteIssue }),
-        _react2.default.createElement(_IssueAdd2.default, { createIssue: this.createIssue })
+        _react2.default.createElement(_IssueAdd2.default, { createIssue: this.createIssue }),
+        _react2.default.createElement(_Toast2.default, {
+          showing: this.state.toastVisible,
+          message: this.state.toastMessage,
+          onDismiss: this.dismissToast,
+          bsStyle: this.state.toastType
+        })
       );
     }
   }]);
@@ -455,7 +588,7 @@ IssueList.propTypes = {
 
 /***/ }),
 
-/***/ 824:
+/***/ 825:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -467,11 +600,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactBootstrap = __webpack_require__(97);
+var _reactBootstrap = __webpack_require__(83);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -536,7 +669,7 @@ exports.default = IssueAdd;
 
 /***/ }),
 
-/***/ 825:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -548,7 +681,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -556,7 +689,7 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactBootstrap = __webpack_require__(97);
+var _reactBootstrap = __webpack_require__(83);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -785,7 +918,7 @@ IssueFilter.propTypes = {
 
 /***/ }),
 
-/***/ 826:
+/***/ 827:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -797,11 +930,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactBootstrap = __webpack_require__(97);
+var _reactBootstrap = __webpack_require__(83);
 
 var _reactRouterBootstrap = __webpack_require__(234);
 
@@ -809,13 +942,17 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _NumInput = __webpack_require__(827);
+var _NumInput = __webpack_require__(828);
 
 var _NumInput2 = _interopRequireDefault(_NumInput);
 
-var _DateInput = __webpack_require__(828);
+var _DateInput = __webpack_require__(829);
 
 var _DateInput2 = _interopRequireDefault(_DateInput);
+
+var _Toast = __webpack_require__(361);
+
+var _Toast2 = _interopRequireDefault(_Toast);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -844,10 +981,16 @@ var IssueEdit = function (_React$Component) {
         created: null
       },
       invalidFields: {},
-      showingValidation: false
+      showingValidation: false,
+      toastVisible: false,
+      toastMessage: '',
+      toastType: 'success'
     };
     _this.dismissValidation = _this.dismissValidation.bind(_this);
     _this.showValidation = _this.showValidation.bind(_this);
+    _this.showSuccess = _this.showSuccess.bind(_this);
+    _this.showError = _this.showError.bind(_this);
+    _this.dismissToast = _this.dismissToast.bind(_this);
     _this.onChange = _this.onChange.bind(_this);
     _this.onValidityChange = _this.onValidityChange.bind(_this);
     _this.onSubmit = _this.onSubmit.bind(_this);
@@ -909,15 +1052,15 @@ var IssueEdit = function (_React$Component) {
               updatedIssue.completionDate = new Date(updatedIssue.completionDate);
             }
             _this2.setState({ issue: updatedIssue });
-            alert('Updated issue successfully.');
+            _this2.showSuccess('Updated issue successfully.');
           });
         } else {
           response.json().then(function (error) {
-            alert('Failed to update issue: ' + error.message);
+            _this2.showError('Failed to update issue: ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert('Error in sending data to server: ' + err.message);
+        _this2.showError('Error in sending data to server: ' + err.message);
       });
     }
   }, {
@@ -934,11 +1077,11 @@ var IssueEdit = function (_React$Component) {
           });
         } else {
           response.json().then(function (error) {
-            alert('Failed to fetch issue: ' + error.message);
+            _this3.showError('Failed to fetch issue: ' + error.message);
           });
         }
       }).catch(function (err) {
-        alert('Error in fetching data from server: ' + err.message);
+        _this3.showError('Error in fetching data from server: ' + err.message);
       });
     }
   }, {
@@ -950,6 +1093,29 @@ var IssueEdit = function (_React$Component) {
     key: 'dismissValidation',
     value: function dismissValidation() {
       this.setState({ showingValidation: false });
+    }
+  }, {
+    key: 'showSuccess',
+    value: function showSuccess(message) {
+      this.setState({
+        toastVisible: true,
+        toastMessage: message,
+        toastType: 'success'
+      });
+    }
+  }, {
+    key: 'showError',
+    value: function showError(message) {
+      this.setState({
+        toastVisible: true,
+        toastMessage: message,
+        toastType: 'danger'
+      });
+    }
+  }, {
+    key: 'dismissToast',
+    value: function dismissToast() {
+      this.setState({ toastVisible: false });
     }
   }, {
     key: 'render',
@@ -1170,7 +1336,13 @@ var IssueEdit = function (_React$Component) {
               validationMessage
             )
           )
-        )
+        ),
+        _react2.default.createElement(_Toast2.default, {
+          showing: this.state.toastVisible,
+          message: this.state.toastMessage,
+          onDismiss: this.dismissToast,
+          bsStyle: this.state.toastType
+        })
       );
     }
   }]);
@@ -1187,7 +1359,7 @@ IssueEdit.propTypes = {
 
 /***/ }),
 
-/***/ 827:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1201,7 +1373,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1290,7 +1462,7 @@ NumInput.propTypes = {
 
 /***/ }),
 
-/***/ 828:
+/***/ 829:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1304,7 +1476,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1406,5 +1578,5 @@ exports.default = DateInput;
 
 /***/ })
 
-},[361]);
+},[362]);
 //# sourceMappingURL=app.bundle.js.map
